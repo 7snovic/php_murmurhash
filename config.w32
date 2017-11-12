@@ -1,0 +1,7 @@
+ARG_ENABLE('murmurhash', 'php murmurhash support', 'no');
+
+if (PHP_MURMURHASH != 'no') {
+	AC_DEFINE('HAVE_MURMURHASH', 1, 'php_murmurhash support enabled');
+
+	EXTENSION('murmurhash', 'php_murmurhash.c', null, '/DZEND_ENABLE_STATIC_TSRMLS_CACHE=1');
+}
