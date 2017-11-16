@@ -1,4 +1,20 @@
-
+/*
+   +----------------------------------------------------------------------+
+   | PHP Version 7                                                        |
+   +----------------------------------------------------------------------+
+   | Copyright (c) 1997-2017 The PHP Group                                |
+   +----------------------------------------------------------------------+
+   | This source file is subject to version 3.01 of the PHP license,      |
+   | that is bundled with this package in the file LICENSE, and is        |
+   | available through the world-wide-web at the following url:           |
+   | http://www.php.net/license/3_01.txt                                  |
+   | If you did not receive a copy of the PHP license and are unable to   |
+   | obtain it through the world-wide-web, please send a note to          |
+   | license@php.net so we can mail you a copy immediately.               |
+   +----------------------------------------------------------------------+
+   | Author: Hassan Ahmed <hsn@outlook.hu>                                |
+   +----------------------------------------------------------------------+
+*/
 
 #ifdef HAVE_CONFIG_H
 # include "config.h"
@@ -9,6 +25,36 @@
 #include "php_murmurhash.h"
 
 
+PHP_FUNCTION(MurmurHash1)
+{
+    char *key = NULL;
+    size_t keylen = 0;
+    zend_long seed = 0;
+
+    if (zend_parse_parameters(ZEND_NUM_ARGS(), "sl", &key, &keylen, &seed) == FAILURE) {
+        RETURN_FALSE;
+    }
+
+    uint32_t out = MurmurHash1(key, keylen, seed);
+
+    RETURN_LONG(out);
+}
+
+PHP_FUNCTION(MurmurHash1Aligned)
+{
+    char *key = NULL;
+    size_t keylen = 0;
+    zend_long seed = 0;
+
+    if (zend_parse_parameters(ZEND_NUM_ARGS(), "sl", &key, &keylen, &seed) == FAILURE) {
+        RETURN_FALSE;
+    }
+
+    uint32_t out = MurmurHash1Aligned(key, keylen, seed);
+
+    RETURN_LONG(out);
+}
+
 
 /* {{{ PHP_RINIT_FUNCTION
  */
@@ -18,24 +64,6 @@ PHP_RINIT_FUNCTION(php_murmurhash)
 	ZEND_TSRMLS_CACHE_UPDATE();
 #endif
 
-	return SUCCESS;
-}
-/* }}} */
-
-
-
-/* {{{ PHP_MINIT_FUNCTION
- */
-PHP_MINIT_FUNCTION(php_murmurhash)
-{
-	return SUCCESS;
-}
-/* }}} */
-
-/* {{{ PHP_MSHUTDOWN_FUNCTION
- */
-PHP_MSHUTDOWN_FUNCTION(php_murmurhash)
-{
 	return SUCCESS;
 }
 /* }}} */
@@ -53,34 +81,38 @@ PHP_MINFO_FUNCTION(php_murmurhash)
 
 /* {{{ arginfo
  */
-
+ZEND_BEGIN_ARG_INFO(arginfo_MurmurHash1, 2)
+    ZEND_ARG_INFO(0, key)
+    ZEND_ARG_INFO(0, seed)
+ZEND_END_ARG_INFO()
 /* }}} */
 
 /* {{{ php_murmurhash_functions[]
  */
 const zend_function_entry php_murmurhash_functions[] = {
+	PHP_FE(MurmurHash1, arginfo_MurmurHash1)
+	PHP_FE(MurmurHash1Aligned, arginfo_MurmurHash1)
 	PHP_FE_END
 };
-
 /* }}} */
 
 /* {{{ php_murmurhash_module_entry
  */
 zend_module_entry php_murmurhash_module_entry = {
 	STANDARD_MODULE_HEADER,
-	"php_murmurhash",						/* Extension name */
+	"murmurhash",						/* Extension name */
 	php_murmurhash_functions,				/* zend_function_entry */
-	PHP_MINIT_FUNCTION(php_murmurhash),		/* PHP_MINIT - Module initialization */
-	PHP_MSHUTDOWN_FUNCTION(php_murmurhash),	/* PHP_MSHUTDOWN - Module shutdown */
+	NULL,		/* PHP_MINIT - Module initialization */
+	NULL,	/* PHP_MSHUTDOWN - Module shutdown */
 	PHP_RINIT(php_murmurhash),				/* PHP_RINIT - Request initialization */
 	NULL,								/* PHP_RSHUTDOWN - Request shutdown */
 	PHP_MINFO(php_murmurhash),				/* PHP_MINFO - Module info */
-	PHP_PHP_MURMURHASH_VERSION,		/* Version */
+	PHP_MURMURHASH_VERSION,		/* Version */
 	STANDARD_MODULE_PROPERTIES
 };
 /* }}} */
 
-#ifdef COMPILE_DL_PHP_MURMURHASH
+#ifdef COMPILE_DL_MURMURHASH
 # ifdef ZTS
 ZEND_TSRMLS_CACHE_DEFINE()
 # endif

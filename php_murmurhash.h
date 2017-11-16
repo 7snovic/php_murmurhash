@@ -12,20 +12,24 @@
    | obtain it through the world-wide-web, please send a note to          |
    | license@php.net so we can mail you a copy immediately.               |
    +----------------------------------------------------------------------+
-   | Author: %CREDITS% |
+   | Author: Hassan Ahmed <hsn@outlook.hu>                                |
    +----------------------------------------------------------------------+
 */
 
 
 #ifndef PHP_MURMURHASH_H
-# define PHP_MURMURHASH_H
+#define PHP_MURMURHASH_H
+
+#include "MurmurHash1.h"
+#include "MurmurHash2.h"
+#include "MurmurHash3.h"
 
 extern zend_module_entry php_murmurhash_module_entry;
 # define phpext_php_murmurhash_ptr &php_murmurhash_module_entry
 
-# define PHP_PHP_MURMURHASH_VERSION "0.1.0"
+# define PHP_MURMURHASH_VERSION "0.1.0"
 
-# if defined(ZTS) && defined(COMPILE_DL_PHP_MURMURHASH)
+# if defined(ZTS) && defined(COMPILE_DL_MURMURHASH)
 ZEND_TSRMLS_CACHE_EXTERN()
 # endif
 
