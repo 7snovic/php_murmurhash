@@ -26,5 +26,5 @@ modules/
 murmurhash.la
 murmurhashlib/ma
 murmurhashlib/ma.c
-php_murmurhash.lo
+*.lo
 run-tests.php
