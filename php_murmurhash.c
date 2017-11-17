@@ -56,6 +56,101 @@ PHP_FUNCTION(MurmurHash1Aligned)
 }
 
 
+/* MurmurHash2 */
+
+PHP_FUNCTION(MurmurHash2)
+{
+    char *key = NULL;
+    size_t keylen = 0;
+    zend_long seed = 0;
+
+    if (zend_parse_parameters(ZEND_NUM_ARGS(), "sl", &key, &keylen, &seed) == FAILURE) {
+        RETURN_FALSE;
+    }
+
+    uint32_t out = MurmurHash2(key, keylen, seed);
+
+    RETURN_LONG(out);
+}
+
+PHP_FUNCTION(MurmurHash64A)
+{
+    char *key = NULL;
+    size_t keylen = 0;
+    zend_long seed = 0;
+
+    if (zend_parse_parameters(ZEND_NUM_ARGS(), "sl", &key, &keylen, &seed) == FAILURE) {
+        RETURN_FALSE;
+    }
+
+    size_t out = MurmurHash64A(key, keylen, seed);
+
+    RETURN_LONG(out);
+}
+
+PHP_FUNCTION(MurmurHash64B)
+{
+    char *key = NULL;
+    size_t keylen = 0;
+    zend_long seed = 0;
+
+    if (zend_parse_parameters(ZEND_NUM_ARGS(), "sl", &key, &keylen, &seed) == FAILURE) {
+        RETURN_FALSE;
+    }
+
+    size_t out = MurmurHash64B(key, keylen, seed);
+
+    RETURN_LONG(out);
+}
+
+PHP_FUNCTION(MurmurHash2A)
+{
+    char *key = NULL;
+    size_t keylen = 0;
+    zend_long seed = 0;
+
+    if (zend_parse_parameters(ZEND_NUM_ARGS(), "sl", &key, &keylen, &seed) == FAILURE) {
+        RETURN_FALSE;
+    }
+
+    uint32_t out = MurmurHash2A(key, keylen, seed);
+
+    RETURN_LONG(out);
+}
+
+PHP_FUNCTION(MurmurHashNeutral2)
+{
+    char *key = NULL;
+    size_t keylen = 0;
+    zend_long seed = 0;
+
+    if (zend_parse_parameters(ZEND_NUM_ARGS(), "sl", &key, &keylen, &seed) == FAILURE) {
+        RETURN_FALSE;
+    }
+
+    uint32_t out = MurmurHashNeutral2(key, keylen, seed);
+
+    RETURN_LONG(out);
+}
+
+PHP_FUNCTION(MurmurHashAligned2)
+{
+    char *key = NULL;
+    size_t keylen = 0;
+    zend_long seed = 0;
+
+    if (zend_parse_parameters(ZEND_NUM_ARGS(), "sl", &key, &keylen, &seed) == FAILURE) {
+        RETURN_FALSE;
+    }
+
+    uint32_t out = MurmurHashAligned2(key, keylen, seed);
+
+    RETURN_LONG(out);
+}
+
+
+
+
 /* {{{ PHP_RINIT_FUNCTION
  */
 PHP_RINIT_FUNCTION(php_murmurhash)
@@ -85,6 +180,11 @@ ZEND_BEGIN_ARG_INFO(arginfo_MurmurHash1, 2)
     ZEND_ARG_INFO(0, key)
     ZEND_ARG_INFO(0, seed)
 ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO(arginfo_MurmurHash2, 2)
+    ZEND_ARG_INFO(0, key)
+    ZEND_ARG_INFO(0, seed)
+ZEND_END_ARG_INFO()
 /* }}} */
 
 /* {{{ php_murmurhash_functions[]
@@ -92,6 +192,13 @@ ZEND_END_ARG_INFO()
 const zend_function_entry php_murmurhash_functions[] = {
 	PHP_FE(MurmurHash1, arginfo_MurmurHash1)
 	PHP_FE(MurmurHash1Aligned, arginfo_MurmurHash1)
+
+	PHP_FE(MurmurHash2, arginfo_MurmurHash2)
+	PHP_FE(MurmurHash64A, arginfo_MurmurHash2)
+	PHP_FE(MurmurHash64B, arginfo_MurmurHash2)
+	PHP_FE(MurmurHash2A, arginfo_MurmurHash2)
+	PHP_FE(MurmurHashNeutral2, arginfo_MurmurHash2)
+	PHP_FE(MurmurHashAligned2, arginfo_MurmurHash2)
 	PHP_FE_END
 };
 /* }}} */
