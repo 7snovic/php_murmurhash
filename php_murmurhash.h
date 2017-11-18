@@ -29,6 +29,15 @@ extern zend_module_entry php_murmurhash_module_entry;
 
 # define PHP_MURMURHASH_VERSION "0.1.0"
 
+PHP_FUNCTION(MurmurHash1);
+PHP_FUNCTION(MurmurHash1Aligned);
+PHP_FUNCTION(MurmurHash2);
+PHP_FUNCTION(MurmurHash64A);
+PHP_FUNCTION(MurmurHash64B);
+PHP_FUNCTION(MurmurHash2A);
+PHP_FUNCTION(MurmurHashNeutral2);
+PHP_FUNCTION(MurmurHashAligned2);
+
 # if defined(ZTS) && defined(COMPILE_DL_MURMURHASH)
 ZEND_TSRMLS_CACHE_EXTERN()
 # endif
