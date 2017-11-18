@@ -148,7 +148,61 @@ PHP_FUNCTION(MurmurHashAligned2)
     RETURN_LONG(out);
 }
 
+/* MurmurHash3 functions */
+PHP_FUNCTION(MurmurHash3_x86_32)
+{
+    uint32_t out[4];
+    char *key = NULL;
+    size_t keylen = 0;
+    zend_long seed = 0;
 
+    if (zend_parse_parameters(ZEND_NUM_ARGS(), "sl", &key, &keylen, &seed) == FAILURE) {
+        RETURN_FALSE;
+    }
+
+    MurmurHash3_x86_32(key, keylen, seed, out);
+
+    RETURN_LONG(out[0]);
+
+}
+
+PHP_FUNCTION(MurmurHash3_x86_128)
+{
+    uint32_t out[4];
+    char *key = NULL;
+    size_t keylen = 0;
+    zend_long seed = 0;
+
+    if (zend_parse_parameters(ZEND_NUM_ARGS(), "sl", &key, &keylen, &seed) == FAILURE) {
+        RETURN_FALSE;
+    }
+
+    MurmurHash3_x86_128(key, keylen, seed, out);
+
+    array_init(return_value);
+    add_next_index_long(return_value, out[0]);
+    add_next_index_long(return_value, out[1]);
+    add_next_index_long(return_value, out[2]);
+    add_next_index_long(return_value, out[3]);
+}
+
+PHP_FUNCTION(MurmurHash3_x64_128)
+{
+    uint64_t out[2];
+    char *key = NULL;
+    size_t keylen = 0;
+    zend_long seed = 0;
+
+    if (zend_parse_parameters(ZEND_NUM_ARGS(), "sl", &key, &keylen, &seed) == FAILURE) {
+        RETURN_FALSE;
+    }
+
+    MurmurHash3_x64_128(key, keylen, seed, out);
+
+    array_init(return_value);
+    add_next_index_long(return_value, out[0]);
+    add_next_index_long(return_value, out[1]);
+}
 
 
 /* {{{ PHP_RINIT_FUNCTION
@@ -185,6 +239,11 @@ ZEND_BEGIN_ARG_INFO(arginfo_MurmurHash2, 2)
     ZEND_ARG_INFO(0, key)
     ZEND_ARG_INFO(0, seed)
 ZEND_END_ARG_INFO()
+
+ZEND_BEGIN_ARG_INFO(arginfo_MurmurHash3, 2)
+    ZEND_ARG_INFO(0, key)
+    ZEND_ARG_INFO(0, seed)
+ZEND_END_ARG_INFO()
 /* }}} */
 
 /* {{{ php_murmurhash_functions[]
@@ -199,6 +258,10 @@ const zend_function_entry php_murmurhash_functions[] = {
 	PHP_FE(MurmurHash2A, arginfo_MurmurHash2)
 	PHP_FE(MurmurHashNeutral2, arginfo_MurmurHash2)
 	PHP_FE(MurmurHashAligned2, arginfo_MurmurHash2)
+
+	PHP_FE(MurmurHash3_x86_32, arginfo_MurmurHash3)
+	PHP_FE(MurmurHash3_x86_128, arginfo_MurmurHash3)
+	PHP_FE(MurmurHash3_x64_128, arginfo_MurmurHash3)
 	PHP_FE_END
 };
 /* }}} */
