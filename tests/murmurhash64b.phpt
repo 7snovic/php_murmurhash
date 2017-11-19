@@ -14,4 +14,4 @@ echo "MurmurHash64B output is : " . $out . ".\n";
 
 ?>
 --EXPECTF--
-MurmurHash64B output is : 17225295719275572811.
+MurmurHash64B output is : -1221448354433978805.

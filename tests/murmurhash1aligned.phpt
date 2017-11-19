@@ -10,7 +10,7 @@ $seed = 20;
 
 $out = MurmurHash1Aligned($key, $seed);
 
-echo "MurmurHash1 output is : " . $out . ".\n";
+echo "MurmurHash1Aligned output is : " . $out . ".\n";
 
 ?>
 --EXPECTF--
