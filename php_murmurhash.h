@@ -37,6 +37,9 @@ PHP_FUNCTION(MurmurHash64B);
 PHP_FUNCTION(MurmurHash2A);
 PHP_FUNCTION(MurmurHashNeutral2);
 PHP_FUNCTION(MurmurHashAligned2);
+PHP_FUNCTION(MurmurHash3_x86_32);
+PHP_FUNCTION(MurmurHash3_x86_128);
+PHP_FUNCTION(MurmurHash3_x64_128);
 
 # if defined(ZTS) && defined(COMPILE_DL_MURMURHASH)
 ZEND_TSRMLS_CACHE_EXTERN()
