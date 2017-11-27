@@ -30,8 +30,8 @@ int $out = MurmurHashAligned2(string $key, int $seed);
 
 // MurmurHash3 functions.
 int $out = MurmurHash3_x86_32(string $key, int $seed);
-int $out = MurmurHash3_x86_128(string $key, int $seed);
-int $out = MurmurHash3_x64_128(string $key, int $seed);
+array $out = MurmurHash3_x86_128(string $key, int $seed);
+array $out = MurmurHash3_x64_128(string $key, int $seed);
 
 ```
 
