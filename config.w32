@@ -1,7 +1,9 @@
+
 ARG_ENABLE('murmurhash', 'php murmurhash support', 'no');
 
 if (PHP_MURMURHASH != 'no') {
 	AC_DEFINE('HAVE_MURMURHASH', 1, 'php_murmurhash support enabled');
 
-	EXTENSION('murmurhash', 'php_murmurhash.c', null, '/DZEND_ENABLE_STATIC_TSRMLS_CACHE=1');
+	EXTENSION('murmurhash', 'php_murmurhash.c libmurmurhash/MurmurHash1.c libmurmurhash/MurmurHash2.c libmurmurhash/MurmurHash3.c', null, '/DZEND_ENABLE_STATIC_TSRMLS_CACHE=1');
+    PHP_INSTALL_HEADERS("ext/php_murmurhash", "php_murmurhash.h libmurmurhash/");
 }
